@@ -43,12 +43,15 @@ def Start_Spammer(img_prompts, write_delay=0.05, time_delay=0.01) -> None:
     it will raise a FailSafeException, effectively ending the program.
     """
     reset_counter = 0
+    iterator = 0
     try:
-        while True:
-            if reset_counter == 2:
+        while iterator <= 100:
+            if reset_counter == 4:
                 reset_counter = 0
                 delay = 61
-                print(f'Reset Counter Set To :: {reset_counter}\nWaiting For {delay} Secs . . .')
+                print("*" * 30)
+                print(f'Total Prompts Written :: {iterator}\nWaiting for {delay} seconds.')
+                print("*" * 30)
                 time.sleep(delay)
 
             rd_prompt = Get_Randomized_Prompts(img_prompts).capitalize()
@@ -64,6 +67,7 @@ def Start_Spammer(img_prompts, write_delay=0.05, time_delay=0.01) -> None:
             auto.press('enter')
             reset_counter += 1
             time.sleep(5)
+            iterator += 1
 
     except FailSafeException:
         print("Quitting Spammer . . .")
